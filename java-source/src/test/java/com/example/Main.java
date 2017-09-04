@@ -6,6 +6,7 @@ import net.corda.core.node.services.ServiceInfo;
 import net.corda.node.services.config.VerifierType;
 import net.corda.node.services.transactions.ValidatingNotaryService;
 import net.corda.nodeapi.User;
+import net.corda.testing.driver.DriverParameters;
 import net.corda.testing.driver.NodeHandle;
 import org.bouncycastle.asn1.x500.X500Name;
 
@@ -31,7 +32,7 @@ public class Main {
         // No permissions required as we are not invoking flows.
         final User user = new User("user1", "test", emptySet());
         driver(
-                true,
+                new DriverParameters().setIsDebug(true),
                 dsl -> {
                     dsl.startNode(new X500Name("CN=Controller,O=R3,OU=corda,L=London,C=UK"),
                             ImmutableSet.of(new ServiceInfo(ValidatingNotaryService.Companion.getType(), null)),

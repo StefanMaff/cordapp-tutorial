@@ -1,8 +1,8 @@
 package com.example.contract;
 
 import com.example.state.IOUState;
-import net.corda.core.contracts.AuthenticatedObject;
 import net.corda.core.contracts.CommandData;
+import net.corda.core.contracts.CommandWithParties;
 import net.corda.core.contracts.Contract;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.transactions.LedgerTransaction;
@@ -30,7 +30,7 @@ public class IOUContract implements Contract {
      */
     @Override
     public void verify(LedgerTransaction tx) {
-        final AuthenticatedObject<Commands.Create> command = requireSingleCommand(tx.getCommands(), Commands.Create.class);
+        final CommandWithParties<Commands.Create> command = requireSingleCommand(tx.getCommands(), Commands.Create.class);
         requireThat(require -> {
             // Generic constraints around the IOU transaction.
             require.using("No inputs should be consumed when issuing an IOU.",
